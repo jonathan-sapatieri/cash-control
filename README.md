@@ -16,7 +16,7 @@ npm run dev
 
 - Neste modo, a base de dados deve ser criada manualmente executando:
 ```sh
-npm run database
+npm run migration
 ```
 
 - Caso queira popular o banco de dados para teste, execute:

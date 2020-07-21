@@ -1,6 +1,30 @@
 # Como Usar a API
-## Users
-## Sessions
+
+## SCRIPTS
+
+- Para iniciar a aplicação em modo de produção execute:
+```sh
+npm install
+npm run start
+```
+
+- Para iniciar a aplicação em modo de desenvolvimento execute:
+```sh
+npm install
+npm run dev
+```
+
+- Neste modo, a base de dados deve ser criada manualmente executando:
+```sh
+npm run database
+```
+
+- Caso queira popular o banco de dados para teste, execute:
+```sh
+npm run seed
+```
+
+
 
 ## Categories
 Manipula todas as categorias utilizadas pelas transações de entrada ou saída.
@@ -167,10 +191,10 @@ __GET /api/summary__
 - Retorno JSON no formato:
 ```json
 {
-  balance: 49.9,
-  totalCashIn: 99.9;
-  totalCashout: 50;
-  transactions: [
+  "balance": 49.9,
+  "totalCashIn": 99.9,
+  "totalCashout": 50,
+  "transactions": [
     {
       "id": 1,
       "date": "2020-07-21T14:25:58.449Z",
@@ -196,10 +220,10 @@ __GET /api/summary/:date__
 - Retorno JSON no formato:
 ```json
 {
-  balance: 15.5,
-  totalCashIn: 25.5;
-  totalCashout: 10;
-  transactions: [
+  "balance": 15.5,
+  "totalCashIn": 25.5,
+  "totalCashout": 10,
+  "transactions": [
     {
       "id": 1,
       "date": Date,
@@ -219,21 +243,3 @@ __GET /api/summary/:date__
   ]
 };
 ```
-
-
-src
-│   app.js          # Classe app
-│   server.js       # Server para iniciar o app
-└───api             
-  └───controllers   # Funções da controllers do express route
-  └───models        # Modelos do banco de dados
-  └───services      # Regras de negócio
-  └───subscribers   # Eventos async 
-  └───repositories* # Query builders 
-└───config          # Configuração das variaveis de ambiente
-└───jobs            # Tarefas de rotinas
-└───loaders         # Modulos para utilizado no app
-└───utils           # Trechos de código pequeno
-└───helpers         # Trechos de arquitetura de código
-└───routes          # Definição de rotas express
-└───types           # Tipagem (d.ts) para Typescript

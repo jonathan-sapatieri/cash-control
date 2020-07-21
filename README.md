@@ -226,7 +226,7 @@ __GET /api/summary/:date__
   "transactions": [
     {
       "id": 1,
-      "date": Date,
+      "date": "2020-07-21T14:25:58.449Z",
       "type": "cash-in",
       "amount": 25.50,
       "description": "Sold a Product",
@@ -234,7 +234,7 @@ __GET /api/summary/:date__
     },
     {
       "id": 2,
-      "date": Date,
+      "date": "2020-07-21T14:25:58.449Z",
       "type": "cash-out",
       "amount": 10.00,
       "description": "Buying a new lamp",

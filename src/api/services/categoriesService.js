@@ -1,43 +1,44 @@
 const categoriesModel = require("../models/categoriesModel");
+const transactionsModel = require("../models/transactionsModel");
+
 
 module.exports = categoriesService = {
-  save: async (category) => {
+  save: async(category) => {
     if (validate(category)) {
       const id = await categoriesModel.save(category);
-      const newCategory = await categoriesModel.getById(id);
-      return newCategory;
+      return await categoriesModel.getById(id);
     }
     const err = new Error();
     err.httpCode = 400;
     throw err;
   },
 
-  getAll: async () => {
+  getAll: async() => {
     return await categoriesModel.getAll();
   },
 
-  getById: async (categoryId) => {
-    const category = await categoriesModel.getById(categoryId);
-    if(category) return category;
-    
-    const err = Error();
-    err.httpCode = 404;
-    throw err;
+  getById: async(idCategory) => {
+    return await categoriesModel.getById(idCategory);
   },
 
-  update: async (categoryId, category) => {
+  update: async(idCategory, category) => {
     if (validate(category)) {
-      const id = await categoriesModel.update(categoryId, category);
-      const newCategory = await categoriesModel.getById(id);
-      return newCategory;
+      const id = await categoriesModel.update(idCategory, category);
+      return await categoriesModel.getById(id);
     }
     const err = new Error();
     err.httpCode = 400;
     throw err;
   },
 
-  delete: async (categoryId) => {
-    return await categoriesModel.delete(categoryId);
+  delete: async(idCategory) => {
+    const transactions = await transactionsModel.getByCategory(idCategory);
+    if(transactions.length > 0) {
+      const err = new Error();
+      err.httpCode = 405;
+      throw err;
+    };
+    return await categoriesModel.delete(idCategory);
   },
 };
 

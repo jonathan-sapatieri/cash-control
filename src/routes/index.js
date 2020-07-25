@@ -13,7 +13,6 @@ router.use('/transactions', transactionsRouter);
 router.use('/summary', summaryRouter);
 
 router.use((err, req, res, next) => {
-  console.log(err);
   if(err.httpCode) {
     res.status(err.httpCode).send();
   } else {

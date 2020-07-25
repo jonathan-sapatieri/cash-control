@@ -1,5 +1,5 @@
-const sqlite3 = require("sqlite3");
-const db = new sqlite3.Database("./src/database/database.sqlite");
+const sqlite3 = require('sqlite3');
+const db = new sqlite3.Database('./src/database/database.sqlite');
 
 module.exports = transactionsModel = {
   save: async (transaction) => {
@@ -44,6 +44,19 @@ module.exports = transactionsModel = {
         (err, transaction) => {
           if (err) reject(err);
           resolve(transaction);
+        }
+      );
+    });
+  },
+
+  getByCategory: async (categoryId) => {
+    return new Promise((resolve, reject) => {
+      db.all(
+        `SELECT * FROM Transactions WHERE Transactions.id_category = $id`,
+        { $id: categoryId },
+        (err, categories) => {
+          if (err) reject(err);
+          resolve(categories);
         }
       );
     });

@@ -1,15 +1,11 @@
-const sqlite3 = require("sqlite3");
-const db = new sqlite3.Database("./src/database/database.sqlite");
+const sqlite3 = require('sqlite3');
+const db = new sqlite3.Database('./src/database/database.sqlite');
 
 module.exports = categoriesModel = {
-  save: async (category) => {
+  save: (category) => {
     return new Promise((resolve, reject) => {
       db.run(
-        `INSERT INTO Categories (
-          name
-          ) VALUES (
-            $name
-          );`,
+        `INSERT INTO Categories (name) VALUES ($name);`,
         { $name: category.name },
         function (err) {
           if (err) reject(err);
@@ -22,10 +18,7 @@ module.exports = categoriesModel = {
   getAll: () => {
     return new Promise((resolve, reject) => {
       db.all(
-        `SELECT 
-          id_category as id,
-          name 
-        FROM Categories`,
+        `SELECT id_category as id, name FROM Categories`,
         (err, categories) => {
           if (err) reject(err);
           resolve(categories);
@@ -34,15 +27,13 @@ module.exports = categoriesModel = {
     });
   },
 
-  getById: async (categoryId) => {
+  getById: (idCategory) => {
     return new Promise((resolve, reject) => {
       db.get(
-        `SELECT 
-          id_category as id,
-          name
+        `SELECT id_category as id, name
          FROM Categories 
-         WHERE Categories.id_category = $id;`,
-        { $id: categoryId },
+         WHERE Categories.id_category = $idCategory;`,
+        { $idCategory: idCategory },
         (err, category) => {
           if (err) reject(err);
           resolve(category);
@@ -51,43 +42,29 @@ module.exports = categoriesModel = {
     });
   },
 
-  update: async (categoryId, category) => {
+  update: (idCategory, category) => {
     return new Promise((resolve, reject) => {
       db.run(
-        `UPDATE Categories SET
-          name = $name 
-        WHERE Categories.id_category = $id;`,
-        { $id: categoryId, $name: category.name },
-        function (err) {
+        `UPDATE Categories SET name = $name 
+        WHERE Categories.id_category = $idCategory;`,
+        { $idCategory: idCategory, $name: category.name },
+        (err) => {
           if (err) reject(err);
-          resolve(categoryId);
+          resolve(idCategory);
         }
       );
     });
   },
 
-  delete: async (categoryId) => {
+  delete: (idCategory) => {
     return new Promise((resolve, reject) => {
-      db.get(
-        `SELECT * FROM Transactions 
-        WHERE Transactions.id_category = $id;`,
-        { $id: categoryId },
-        (err, category) => {
-          if (err) { reject(err); }
-          else if (category) { reject(); }
-          else {
-            db.run(
-              `DELETE FROM Categories 
-              WHERE Categories.id_category = $id;`,
-              { $id: categoryId },
-              (err) => {
-                if (err) reject(err);
-                resolve();
-              }
-            );
-          }
-        }
-      );
+      db.run(
+        `DELETE FROM Categories WHERE Categories.id_category = $idCategory;`,
+        { $idCategory: idCategory },
+        (err) => {
+          if (err) reject(err);
+          resolve();
+        });
     });
   },
 };

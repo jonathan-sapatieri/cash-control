@@ -1,6 +1,7 @@
+const { port } = require('./src/config');
 const app = require('./src');
 
-const PORT = process.env.APP_PORT || 3001;
+const PORT = port || 3001;
 
 app.get('/', (req, res, next) => {
     res.status(200).send('Server is running!');

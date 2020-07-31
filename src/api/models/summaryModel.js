@@ -1,5 +1,7 @@
+const { database } = require('../../config/');
+
 const sqlite3 = require('sqlite3');
-const db = new sqlite3.Database('./src/database/database.sqlite');
+const db = new sqlite3.Database(database);
 
 module.exports = summaryModel = {
   getSummaryByDate: async (summaryDate) => {

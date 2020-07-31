@@ -2,9 +2,9 @@ const categoriesService = require("../services/categoriesService");
 const categoriesModel = require("../models/categoriesModel");
 
 module.exports = categoriesController = {
-  paramId: async(req, res, next, id) => {
+  paramId: async(req, res, next, idCategory) => {
     try {
-      const category = await categoriesService.getById(id);
+      const category = await categoriesService.getById(idCategory);
       if(category) {
         req.category = category;
         next();
@@ -55,6 +55,6 @@ module.exports = categoriesController = {
       res.status(204).send();
     } catch (err) {
       next(err);
-    }
+    };
   },
 };

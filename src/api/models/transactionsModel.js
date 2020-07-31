@@ -1,21 +1,21 @@
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('./src/database/database.sqlite');
 
-module.exports = transactionsModel = {
-  save: async (transaction) => {
+module.exports.transactionsModel = {
+  save: async(transaction) => {
     const { date, type, amount, description, category } = transaction;
     return new Promise((resolve, reject) => {
       db.run(
         `INSERT INTO Transactions 
-        (date, type, amount, description, id_category)
+          (date, type, amount, description, id_category)
         VALUES
-        ($date, $type, $amount, $description, $id_category);`,
+          ($date, $type, $amount, $description, $idCategory);`,
         {
           $date: date,
           $type: type,
           $amount: amount,
           $description: description,
-          $id_category: category,
+          $idCategory: category,
         },
         function (err) {
           if (err) reject(err);
@@ -25,7 +25,7 @@ module.exports = transactionsModel = {
     });
   },
 
-  getById: async (transactionId) => {
+  getById: async(idTransaction) => {
     return new Promise((resolve, reject) => {
       db.get(
         `SELECT
@@ -39,35 +39,36 @@ module.exports = transactionsModel = {
         FROM Transactions
         JOIN Categories 
         ON Transactions.id_category = Categories.id_category
-        WHERE Transactions.id_transaction = $id;`,
-        { $id: transactionId },
+        WHERE Transactions.id_transaction = $idTransaction;`,
+        { $idTransaction: idTransaction },
         (err, transaction) => {
-          if (err) reject(err);
+          if(err) reject(err);
           resolve(transaction);
         }
       );
     });
   },
 
-  getByCategory: async (categoryId) => {
+  getByCategory: async(idCategory) => {
     return new Promise((resolve, reject) => {
       db.all(
-        `SELECT * FROM Transactions WHERE Transactions.id_category = $id`,
-        { $id: categoryId },
-        (err, categories) => {
+        `SELECT * FROM Transactions 
+        WHERE Transactions.id_category = $idCategory`,
+        { $idCategory: idCategory },
+        (err, transactions) => {
           if (err) reject(err);
-          resolve(categories);
+          resolve(transactions);
         }
       );
     });
   },
 
-  update: async (transactionId, transaction) => {
+  update: async(idTransaction, transaction) => {
     const { date, type, amount, description, category } = transaction;
     return new Promise((resolve, reject) => {
       db.run(
-        `UPDATE Transactions
-        SET date = $date, 
+        `UPDATE Transactions SET 
+            date = $date, 
             type= $type, 
             amount= $amount, 
             description = $description, 
@@ -75,7 +76,7 @@ module.exports = transactionsModel = {
         WHERE Transactions.id_transaction = $id;
         `,
         {
-          $id: transactionId,
+          $id: idTransaction,
           $date: date,
           $type: type,
           $amount: amount,
@@ -84,18 +85,18 @@ module.exports = transactionsModel = {
         },
         (err) => {
           if (err) reject(err);
-          resolve(transactionId);
+          resolve(idTransaction);
         }
       );
     });
   },
 
-  delete: async (transactionId) => {
+  delete: async(idTransaction) => {
     return new Promise((resolve, reject) => {
       db.run(
         `DELETE FROM Transactions 
-        WHERE Transactions.id_transaction = $id;`,
-        { $id: transactionId },
+        WHERE Transactions.id_transaction = $idTransaction;`,
+        { $idTransaction: idTransaction },
         (err) => {
           if (err) reject();
           resolve();

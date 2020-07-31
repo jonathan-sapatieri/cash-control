@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "db": "node ./src/database/index.js",
-    "test": "mocha"
+    "test": "npm run db && mocha ./test/index.js"
   },
   "keywords": [
     "money",

@@ -1,11 +1,11 @@
-const transactionsModel = require("../models/transactionsModel");
+const { transactionsModel } = require("../models/transactionsModel");
 
-module.exports = transactionsService = {
-  save: async (transaction) => {
-    if (validate(transaction)) {
-      const id = await transactionsModel.save(transaction);
-      let newTransaction = await transactionsModel.getById(id);
-      newTransaction = formatJSON(newTransaction);
+module.exports.transactionsService = {
+  save: async(transaction) => {
+    if(validate(transaction)) {
+      const idTransaction = await transactionsModel.save(transaction);
+      let newTransaction = await transactionsModel.getById(idTransaction);
+      newTransaction = await formatJSON(newTransaction);
       return newTransaction;
     }
     const err = new Error();
@@ -13,20 +13,20 @@ module.exports = transactionsService = {
     throw err;
   },
 
-  getById: async (transactionId) => {
-    let transaction = await transactionsModel.getById(transactionId);
+  getById: async(idTransaction) => {
+    let transaction = await transactionsModel.getById(idTransaction);
     if(transaction) {
-      transaction = formatJSON(transaction);
-      return transaction;
-    }
-    const err = Error();
-    err.httpCode = 404;
-    throw err;
+      return await formatJSON(transaction);
+    } else {
+      const err = new Error();
+      err.httpCode = 404;
+      throw err;
+    };
   },
 
-  update: async (transactionId, transaction) => {
-    if (validate(transaction)) {
-      const id = await transactionsModel.update(transactionId, transaction);
+  update: async(idTransaction, transaction) => {
+    if(validate(transaction)) {
+      const id = await transactionsModel.update(idTransaction, transaction);
       let newTransaction = await transactionsModel.getById(id);
       newTransaction = formatJSON(newTransaction);
       return newTransaction;
@@ -36,8 +36,8 @@ module.exports = transactionsService = {
     throw err;
   },
 
-  delete: async (transactionId) => {
-    return await transactionsModel.delete(transactionId);
+  delete: async (idTransaction) => {
+    return await transactionsModel.delete(idTransaction);
   },
 };
 
@@ -49,7 +49,7 @@ const validate = (transaction) => {
   return false;
 };
 
-const formatJSON = (transaction) => {
+const formatJSON = async(transaction) => {
   return {
     id: transaction.id,
     date: transaction.date,
@@ -57,8 +57,8 @@ const formatJSON = (transaction) => {
     amount: transaction.amount,
     description: transaction.description,
     category: {
-      id: transaction.categoryName,
-      name: transaction.categoryId,
+      id: transaction.categoryId,
+      name: transaction.categoryName,
     },
   };
 };

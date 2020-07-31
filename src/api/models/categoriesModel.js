@@ -59,7 +59,8 @@ module.exports = categoriesModel = {
   delete: (idCategory) => {
     return new Promise((resolve, reject) => {
       db.run(
-        `DELETE FROM Categories WHERE Categories.id_category = $idCategory;`,
+        `DELETE FROM Categories
+         WHERE Categories.id_category = $idCategory;`,
         { $idCategory: idCategory },
         (err) => {
           if (err) reject(err);

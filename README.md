@@ -180,7 +180,7 @@ __PUT /api/transactions/:id__
   ]
 }
 ```
-__DELETE /api/transactionscash-in/:id__
+__DELETE /api/transactions/:id__
 - Deleta uma transação pelo seu ID.
 
 ## Summary

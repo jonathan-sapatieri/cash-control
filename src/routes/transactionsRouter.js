@@ -1,5 +1,7 @@
 const transactionsRouter = require("express").Router();
-const transactionsController = require("../api/controllers/transactionsController");
+const { transactionsController } = require("../api/controllers/transactionsController");
+
+transactionsRouter.param('id', transactionsController.paramId);
 
 transactionsRouter.post("/", transactionsController.save);
 transactionsRouter.get("/:id", transactionsController.getById);

@@ -1,5 +1,5 @@
 const categoriesModel = require("../models/categoriesModel");
-const transactionsModel = require("../models/transactionsModel");
+const { transactionsModel } = require("../models/transactionsModel");
 
 
 module.exports = categoriesService = {

@@ -13,11 +13,10 @@ router.use('/transactions', transactionsRouter);
 router.use('/summary', summaryRouter);
 
 router.use((err, req, res, next) => {
-  if(err.httpCode) {
-    res.status(err.httpCode).send();
-  } else {
-    res.status(500).send('Internal Server Error');
-  }
+  if(!err.httpCode) {
+    err.httpCode = 500;
+  };
+  res.status(err.httpCode).send();
 });
 
 module.exports = router;

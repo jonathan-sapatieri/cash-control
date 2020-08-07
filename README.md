@@ -1,32 +1,61 @@
-# Como Usar a API
+# CONFIGURAÇOES
 
-## SCRIPTS
+## Estrutura do Diretório
+```
+src
+  |__api
+      |__controllers (requisições e respostas)
+      |__models (operações de banco de dados)
+      |__services (regras de negócios)
+  |__config
+      |_index.js
+  |__database
+      |__index.js
+  |__routes
+      |__index.js
+  |__utils
+  |__index.js
+package.json
+package-lock.json
+README.md
+server.js
+```
 
-- Para iniciar a aplicação em modo de produção execute:
+## Variáveis de Ambientes
+- Diretório arquivo env: ./src/config/.env
+```.env
+# APP
+PORT=
+
+# DATABASE
+DB_DEV_SRC=
+DB_TEST_SRC=
+DB_PROD_SRC=
+```
+- **PORT**: define a porta de execução da aplicação;
+- **DB_DEV_SRC**: define o diretório da base de dados de desenvolvimento;
+- **DB_TEST_SRC**: define o diretório da base de dados de teste;
+- **DB_PROD_SRC**: define o diretório da base de dados de produção.
+
+## Scripts
+
+- Para iniciar a aplicação em modo de **produção** execute:
 ```sh
 npm install
+npm run migrate
 npm run start
 ```
-
-- Para iniciar a aplicação em modo de desenvolvimento execute:
+- Para iniciar a aplicação em modo de **desenvolvimento** execute:
 ```sh
 npm install
-npm run dev
+npm run migrate:dev
+npm run start:dev
 ```
+A base de dados do modo de desenvolvimentos possui dados fictícios para testes.
 
-- Neste modo, a base de dados deve ser criada manualmente executando:
-```sh
-npm run migration
-```
+# ROTAS
 
-- Caso queira popular o banco de dados para teste, execute:
-```sh
-npm run seed
-```
-
-
-
-## Categories
+## Categorias (Categories)
 Manipula todas as categorias utilizadas pelas transações de entrada ou saída.
 
 __POST /api/categories__
@@ -43,7 +72,7 @@ __POST /api/categories__
   "categories": [
     {
       "id": 1,
-      "name": "categoryName",
+      "name": "categoryName"
     }
   ]
 }
@@ -57,11 +86,11 @@ __GET /api/categories__
   "categories": [
     {
       "id": 1,
-      "name": "categoryName",
+      "name": "categoryName"
     },
     {
       "id": 2,
-      "name": "categoryName",
+      "name": "categoryName"
     }
   ]
 }
@@ -75,8 +104,8 @@ __GET /api/categories/:id__
   "categories": [
     {
       "id": 1,
-      "name": "categoryName",
-    },
+      "name": "categoryName"
+    }
   ]
 }
 ```
@@ -86,7 +115,7 @@ __PUT /api/categories/:id__
 - Exige um body JSON no formato:
 ```json
 {
-  "name": "categoryName",
+  "name": "categoryName"
 }
 ```
 - Retorna a categoria atualizada em JSON no formato:
@@ -95,20 +124,20 @@ __PUT /api/categories/:id__
   "categories": [
     {
       "id": 1,
-      "name": "categoryName",
-    },
+      "name": "categoryName"
+    }
   ]
 }
 ```
 
 __DELETE /api/categories/:id__
-- Deleta uma categoria pelo seu ID.
+- Deleta uma categoria pelo seu ID caso ela não esteja vinculada à nenhuma transação.
 
-## Transactions
+## Transações (Transactions)
 Manipula transações financeiras de entrada e saída.
 
 __POST /api/transactions/__
-- Cria uma transação financeira de saída ou entrada.
+- Cria uma transação financeira de entrada ou saída.
 - Exige um body JSON no formato:
 ```json
 {
@@ -116,7 +145,7 @@ __POST /api/transactions/__
   "type": "cash-in",
   "amount": 99.9,
   "description": "Sold a Product",
-  "category": { "id": 1, "name": "categoryName" },
+  "category": { "id": 1, "name": "categoryName" }
 }
 ```
 - Retorna a nova transação em JSON no formato:
@@ -129,7 +158,7 @@ __POST /api/transactions/__
       "type": "cash-in",
       "amount": 99.9,
       "description": "Sold a Product",
-      "category": { "id": 1, "name": "categoryName" },
+      "category": { "id": 1, "name": "categoryName" }
     }
   ]
 }
@@ -147,7 +176,7 @@ __GET /api/transactions/:id__
       "type": "cash-in",
       "amount": 99.9,
       "description": "Sold a Product",
-      "category": { "id": 1, "name": "categoryName" },
+      "category": { "id": 1, "name": "categoryName" }
     }
   ]
 }
@@ -162,7 +191,7 @@ __PUT /api/transactions/:id__
   "type": "cash-in",
   "amount": 99.90,
   "description": "Sold a Product",
-  "category": { "id": 1, "name": "categoryName" },
+  "category": { "id": 1, "name": "categoryName" }
 }
 ```
 - Retorna a transação atualizada em JSON no formato:
@@ -175,7 +204,7 @@ __PUT /api/transactions/:id__
       "type": "cash-in",
       "amount": 99.90,
       "description": "Sold a Product",
-      "category": { "id": 1, "name": "categoryName" },
+      "category": { "id": 1, "name": "categoryName" }
     }
   ]
 }
@@ -183,7 +212,7 @@ __PUT /api/transactions/:id__
 __DELETE /api/transactions/:id__
 - Deleta uma transação pelo seu ID.
 
-## Summary
+## Resumo (Summary)
 Retorna o resumo das transações de uma data especificada.
 
 __GET /api/summary__
@@ -201,7 +230,7 @@ __GET /api/summary__
       "type": "cash-in",
       "amount": 99.90,
       "description": "Sold a Product",
-      "category": { "id": 1, "name": "categoryName" },
+      "category": { "id": 1, "name": "categoryName" }
     },
     {
       "id": 2,
@@ -209,8 +238,8 @@ __GET /api/summary__
       "type": "cash-out",
       "amount": 50.00,
       "description": "Electricity bill payment",
-      "category": { "id": 1, "name": "categoryName" },
-    },
+      "category": { "id": 1, "name": "categoryName" }
+    }
   ]
 };
 ```
@@ -230,7 +259,7 @@ __GET /api/summary/:date__
       "type": "cash-in",
       "amount": 25.50,
       "description": "Sold a Product",
-      "category": { "id": 1, "name": "categoryName" },
+      "category": { "id": 1, "name": "categoryName" }
     },
     {
       "id": 2,
@@ -238,8 +267,8 @@ __GET /api/summary/:date__
       "type": "cash-out",
       "amount": 10.00,
       "description": "Buying a new lamp",
-      "category": { "id": 1, "name": "categoryName" },
-    },
+      "category": { "id": 1, "name": "categoryName" }
+    }
   ]
 };
 ```

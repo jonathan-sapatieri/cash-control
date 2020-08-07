@@ -1,5 +1,4 @@
 const categoriesService = require("../services/categoriesService");
-const categoriesModel = require("../models/categoriesModel");
 
 module.exports = categoriesController = {
   paramId: async(req, res, next, idCategory) => {

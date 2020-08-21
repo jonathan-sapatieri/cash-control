@@ -16,6 +16,7 @@ router.use((err, req, res, next) => {
   if(!err.httpCode) {
     err.httpCode = 500;
   };
+  console.log(err.message);
   res.status(err.httpCode).send();
 });
 

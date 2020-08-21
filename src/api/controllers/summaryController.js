@@ -1,6 +1,6 @@
-const summaryService = require('../services/summaryService');
+const { summaryService } = require('../services/summaryService');
 
-module.exports = summaryController = {
+module.exports.summaryController = {
   getSummary: async(req, res, next) => {
     try {
       const summary = await summaryService.getSummary();

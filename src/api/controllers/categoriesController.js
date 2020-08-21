@@ -1,6 +1,6 @@
-const categoriesService = require("../services/categoriesService");
+const { categoriesService } = require("../services/categoriesService");
 
-module.exports = categoriesController = {
+module.exports.categoriesController = {
   paramId: async(req, res, next, idCategory) => {
     try {
       const category = await categoriesService.getById(idCategory);

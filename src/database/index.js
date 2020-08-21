@@ -1,30 +1,36 @@
-const sqlite3 = require("sqlite3");
-const db = new sqlite3.Database("./src/database/database.sqlite");
+require('dotenv').config({path: './src/config/.env'});
 
-const { migration } = require("./migration");
-const { seed } = require("./seed");
+const { database } = require('../config')
+const sqlite3 = require('sqlite3');
+const db = new sqlite3.Database(database);
 
-function init(db) {
-  const env = process.env.NODE_ENV;
+const { migration } = require('./migration');
+const { seed } = require('./seed');
 
-  if(env === 'dev' || env === 'test') {
+const init = async(db) => {
+  console.log(database);
+  const env = process.env.NODE_ENV.trim();
+
+  if(env === 'development' || env === 'test') {
     try {
-      migration.createTableCategories(db);
-      migration.createTableTransactions(db);
-      seed.seedCategories(db);
-      seed.seedTransactions(db);
+      await migration.createTableCategories(db);
+      await migration.createTableTransactions(db);
+      await seed.seedCategories(db);
+      await seed.seedTransactions(db);
     } catch (err) {
       console.log(err);
     }
   } else {
     try {
-      migration.createTableCategories(db);
-      migration.createTableTransactions(db);
+      await migration.createTableCategories(db);
+      await migration.createTableTransactions(db);
     } catch (err) {
       console.log(err);
     }
   };
   console.log(`Database migrated in ${env} mode.`)
 };
+
+module.exports.init = init;
 
 init(db);

@@ -1,11 +1,14 @@
 function getDatabase() {
-  if(process.env.NODE_ENV == `dev`) {
+  
+  const env = process.env.NODE_ENV.trim();
+
+  if(env === 'development') {
     return process.env.DB_DEV_SRC
   }
-  if(process.env.NODE_ENV == `test`) {
+  if(env === 'test') {
     return process.env.DB_TEST_SRC
   }
-  if(process.env.NODE_ENV == `prod`) {
+  if(env === 'production') {
     return process.env.DB_PROD_SRC
   };
 };

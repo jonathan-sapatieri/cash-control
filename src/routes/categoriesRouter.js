@@ -1,5 +1,5 @@
 const categoriesRouter = require('express').Router();
-const categoriesController = require('../api/controllers/categoriesController');
+const { categoriesController } = require('../api/controllers/categoriesController');
 
 categoriesRouter.param('id', categoriesController.paramId);
 

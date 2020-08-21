@@ -3,7 +3,7 @@ const { database } = require('../../config/');
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database(database);
 
-module.exports = categoriesModel = {
+module.exports.categoriesModel = {
   save: (category) => {
     return new Promise((resolve, reject) => {
       db.run(

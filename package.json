@@ -1,17 +1,23 @@
 {
   "name": "cash-control",
   "version": "1.0.0",
-  "repository": "",
+  "repository": "https://github.com/jonathan-sapatieri/cash-control.git",
   "license": "MIT",
   "author": "Jonathan Sapatieri",
   "description": "",
-  "keywords": ["money", "cash", "control", "cash-control" ],
+  "keywords": [
+    "money",
+    "cash",
+    "control",
+    "cash-control"
+  ],
   "main": "server.js",
   "scripts": {
-    "start": "SET NODE_ENV=prod&& node -r dotenv/config server.js dotenv_config_path=./src/config/.env",
-    "start:dev": "SET NODE_ENV=dev&& nodemon -r dotenv/config server.js dotenv_config_path=./src/config/.env",
-    "migrate": "SET NODE_ENV=prod&& node -r dotenv/config ./src/database/ dotenv_config_path=./src/config/.env",
-    "migrate:dev": "SET NODE_ENV=dev&& node -r dotenv/config ./src/database/ dotenv_config_path=./src/config/.env"
+    "start": "SET NODE_ENV=production && node server.js",
+    "start:dev": "SET NODE_ENV=test && nodemon server.js",
+    "migrate": "SET NODE_ENV=production && node ./src/database/ ",
+    "migrate:dev": "SET NODE_ENV=development && node ./src/database/",
+    "test": "SET NODE_ENV=test && mocha ./test"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -22,7 +28,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "dotenv": "^8.2.0",
-    "mocha": "^8.0.1",
+    "mocha": "^8.1.1",
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
   }

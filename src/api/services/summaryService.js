@@ -1,6 +1,6 @@
-const summaryModel = require("../models/summaryModel");
+const { summaryModel } = require("../models/summaryModel");
 
-module.exports = summaryService = {
+module.exports.summaryService = {
   getSummary: async () => {
     const currentDate = new Date().toISOString();
     let summary = await summaryModel.getSummaryByDate(currentDate);

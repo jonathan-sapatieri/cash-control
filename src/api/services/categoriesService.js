@@ -1,8 +1,7 @@
-const categoriesModel = require("../models/categoriesModel");
+const { categoriesModel } = require("../models/categoriesModel");
 const { transactionsModel } = require("../models/transactionsModel");
 
-
-module.exports = categoriesService = {
+module.exports.categoriesService = {
   save: async(category) => {
     if (validate(category)) {
       const id = await categoriesModel.save(category);

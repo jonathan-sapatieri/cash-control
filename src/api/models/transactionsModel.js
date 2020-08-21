@@ -17,7 +17,7 @@ module.exports.transactionsModel = {
           $type: type,
           $amount: amount,
           $description: description,
-          $idCategory: category,
+          $idCategory: category.id,
         },
         function (err) {
           if (err) reject(err);
@@ -83,7 +83,7 @@ module.exports.transactionsModel = {
           $type: type,
           $amount: amount,
           $description: description,
-          $category: category,
+          $category: category.id,
         },
         (err) => {
           if (err) reject(err);

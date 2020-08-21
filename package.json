@@ -14,10 +14,12 @@
   "main": "server.js",
   "scripts": {
     "start": "SET NODE_ENV=production && node server.js",
-    "start:dev": "SET NODE_ENV=test && nodemon server.js",
+    "start:dev": "SET NODE_ENV=development && nodemon server.js",
+    "start:test": "SET NODE_ENV=development && nodemon server.js",
     "migrate": "SET NODE_ENV=production && node ./src/database/ ",
     "migrate:dev": "SET NODE_ENV=development && node ./src/database/",
-    "test": "SET NODE_ENV=test && mocha ./test"
+    "migrate:test": "SET NODE_ENV=test && node ./src/database/",
+    "test": "npm run migrate:test && SET NODE_ENV=test && mocha ./test"
   },
   "dependencies": {
     "cors": "^2.8.5",

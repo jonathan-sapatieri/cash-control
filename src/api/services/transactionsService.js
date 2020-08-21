@@ -43,9 +43,11 @@ module.exports.transactionsService = {
 
 const validate = (transaction) => {
   const { date, type, amount, description, category } = transaction;
-  if (date && amount && description && category) {
-    if (type === "cash-in" || type === "cash-out") return true;
-  }
+  if (date && amount && description && category.id) {
+    if (type === 'cash-in' || type === 'cash-out') {
+      return true;
+    }
+  };
   return false;
 };
 

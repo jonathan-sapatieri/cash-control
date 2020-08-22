@@ -15,7 +15,7 @@
   "scripts": {
     "start": "SET NODE_ENV=production && node server.js",
     "start:dev": "SET NODE_ENV=development && nodemon server.js",
-    "start:test": "SET NODE_ENV=development && nodemon server.js",
+    "start:test": "SET NODE_ENV=test && nodemon server.js",
     "migrate": "SET NODE_ENV=production && node ./src/database/ ",
     "migrate:dev": "SET NODE_ENV=development && node ./src/database/",
     "migrate:test": "SET NODE_ENV=test && node ./src/database/",

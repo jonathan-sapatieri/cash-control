@@ -222,7 +222,7 @@ __GET /api/summary__
 {
   "balance": 49.9,
   "totalCashIn": 99.9,
-  "totalCashout": 50,
+  "totalCashOut": 50,
   "transactions": [
     {
       "id": 1,
@@ -251,7 +251,7 @@ __GET /api/summary/:date__
 {
   "balance": 15.5,
   "totalCashIn": 25.5,
-  "totalCashout": 10,
+  "totalCashOut": 10,
   "transactions": [
     {
       "id": 1,

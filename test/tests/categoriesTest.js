@@ -179,7 +179,6 @@ module.exports.categoriesTest = (app, db, url) => {
       db.get(
         `SELECT * FROM Categories WHERE id_category = ${idCategory}`,
         (err, category) => {
-          console.log(category);
           expect(category).to.be.undefined;
         }
       );

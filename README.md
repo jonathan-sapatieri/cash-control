@@ -38,20 +38,26 @@ DB_PROD_SRC=
 - **DB_PROD_SRC**: define o diretório da base de dados de produção.
 
 ## Scripts
-
-- Para iniciar a aplicação em modo de **produção** execute:
+- Para instalar as depências do projeto, execute:
 ```sh
 npm install
+```
+- Para iniciar a aplicação em modo de **produção** execute:
+```sh
 npm run migrate
 npm run start
 ```
 - Para iniciar a aplicação em modo de **desenvolvimento** execute:
 ```sh
-npm install
 npm run migrate:dev
 npm run start:dev
 ```
 A base de dados do modo de desenvolvimentos possui dados fictícios para testes.
+
+- Para executar os testes automatizados, execute:
+```sh
+npm test
+```
 
 # ROTAS
 
@@ -220,15 +226,15 @@ __GET /api/summary__
 - Retorno JSON no formato:
 ```json
 {
-  "balance": 49.9,
-  "totalCashIn": 99.9,
-  "totalCashOut": 50,
+  "balance": 40.00,
+  "totalCashIn": 99.99,
+  "totalCashOut": 59.99,
   "transactions": [
     {
       "id": 1,
       "date": "2020-07-21T14:25:58.449Z",
       "type": "cash-in",
-      "amount": 99.90,
+      "amount": 99.99,
       "description": "Sold a Product",
       "category": { "id": 1, "name": "categoryName" }
     },
@@ -236,7 +242,7 @@ __GET /api/summary__
       "id": 2,
       "date": "2020-07-21T14:25:58.449Z",
       "type": "cash-out",
-      "amount": 50.00,
+      "amount": 59.99,
       "description": "Electricity bill payment",
       "category": { "id": 1, "name": "categoryName" }
     }
@@ -246,18 +252,19 @@ __GET /api/summary__
 
 __GET /api/summary/:date__
 - Retorna o resumo das transações na data especificada.
+- A data deve estar no formato especificado pela  IS0-8601. Ex. 2020-07-21T14:25:58.449Z.
 - Retorno JSON no formato:
 ```json
 {
-  "balance": 15.5,
-  "totalCashIn": 25.5,
-  "totalCashOut": 10,
+  "balance": 40.00,
+  "totalCashIn": 99.99,
+  "totalCashOut": 59.99,
   "transactions": [
     {
       "id": 1,
       "date": "2020-07-21T14:25:58.449Z",
       "type": "cash-in",
-      "amount": 25.50,
+      "amount": 99.99,
       "description": "Sold a Product",
       "category": { "id": 1, "name": "categoryName" }
     },
@@ -265,8 +272,8 @@ __GET /api/summary/:date__
       "id": 2,
       "date": "2020-07-21T14:25:58.449Z",
       "type": "cash-out",
-      "amount": 10.00,
-      "description": "Buying a new lamp",
+      "amount": 59.99,
+      "description": "Electricity bill payment",
       "category": { "id": 1, "name": "categoryName" }
     }
   ]
